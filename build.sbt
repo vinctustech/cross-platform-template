@@ -1,8 +1,10 @@
-lazy val cross_platform_template = crossProject(JSPlatform, JVMPlatform, NativePlatform).in(file(".")).
+ThisBuild / versionScheme := Some("semver-spec")
+
+lazy val projectName = crossProject(JSPlatform, JVMPlatform, NativePlatform).in(file(".")).
   settings(
-    name := "cross_platform_template",
-    version := "0.1.0-snapshot.1",
-    scalaVersion := "2.13.5",
+    name := "projectName",
+    version := "0.1.0",
+    scalaVersion := "2.13.6",
     scalacOptions ++=
       Seq(
         "-deprecation", "-feature", "-unchecked",
@@ -10,11 +12,14 @@ lazy val cross_platform_template = crossProject(JSPlatform, JVMPlatform, NativeP
         "-Xasync"
       ),
     organization := "com.vinctus",
-    mainClass := Some("com.vinctus.cross_platform_template.Main"),
+    githubOwner := "vinctustech",
+    githubRepository := "mappable",
+    resolvers += Resolver.githubPackages("edadma", "cross-platform"),
+    mainClass := Some("xyz.hyperreal.projectName.Main"),
     libraryDependencies += "org.scalatest" %%% "scalatest" % "3.2.5" % "test",
-    libraryDependencies += "xyz.hyperreal" %%% "cross-platform" % "0.1.0-snapshot.3",
+    libraryDependencies += "xyz.hyperreal" %%% "cross-platform" % "0.1.0",
     publishMavenStyle := true,
-    publishArtifact in Test := false,
+    Test / publishArtifact := false,
     licenses += "ISC" -> url("https://opensource.org/licenses/ISC")
   ).
   jvmSettings(
